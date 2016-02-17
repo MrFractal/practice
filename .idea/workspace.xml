@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="b7dbe133-319e-4119-9695-585ed0285097" name="Default" comment="fix change to test_branch">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+    <list default="true" id="b7dbe133-319e-4119-9695-585ed0285097" name="Default" comment="fix change">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <list id="ff7da240-4588-4c29-9996-593380078e50" name="donotcommit" comment="" />
@@ -1199,7 +1198,7 @@
       <workItem from="1455558344753" duration="2350000" />
       <workItem from="1455628133280" duration="5175000" />
       <workItem from="1455706471333" duration="1585000" />
-      <workItem from="1455711639041" duration="3324000" />
+      <workItem from="1455711639041" duration="3500000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1454181294662</created>
@@ -1237,11 +1236,17 @@
       <option name="project" value="LOCAL" />
       <updated>1455714618115</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="fix change">
+      <created>1455715268943</created>
+      <option name="number" value="00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1455715268943</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="170148000" />
+    <option name="totallyTimeSpent" value="170324000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1303,9 +1308,9 @@
     <MESSAGE value="first commit" />
     <MESSAGE value="test git commit" />
     <MESSAGE value="change SecurityConfig for test commit" />
-    <MESSAGE value="fix change" />
     <MESSAGE value="fix change to test_branch" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix change to test_branch" />
+    <MESSAGE value="fix change" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix change" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
