@@ -42,6 +42,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+
+        // some changes for check git repo
+
         auth.userDetailsService(userDetailsService); // .passwordEncoder(passwordEncoder())
         //auth.authenticationProvider(customAuthenticationProvider);
 
