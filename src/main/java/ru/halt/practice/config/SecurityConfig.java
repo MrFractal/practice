@@ -45,6 +45,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userDetailsService); // .passwordEncoder(passwordEncoder())
         //auth.authenticationProvider(customAuthenticationProvider);
 
+        /*
+           hello
+        */
 
         //auth.authenticationProvider(clientAuthenticationProvider).
         //authenticationProvider(backendAdminUsernamePasswordAuthenticationProvider()).
