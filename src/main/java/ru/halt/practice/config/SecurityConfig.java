@@ -39,6 +39,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     //@Autowired
     //private HttpLogoutSuccessHandler logoutSuccessHandler;
 
+    /* test branch commit */
+
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
