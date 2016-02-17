@@ -45,6 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         // some changes for check git repo
 
+        String str = new String("zzz");
+
         auth.userDetailsService(userDetailsService); // .passwordEncoder(passwordEncoder())
         //auth.authenticationProvider(customAuthenticationProvider);
 
