@@ -1,126 +1,91 @@
 package ru.halt.practice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import ru.halt.practice.security.ClientAuthenticationProvider;
-import ru.halt.practice.security.zzz.RestAuthenticationAccessDeniedHandler;
-import ru.halt.practice.security.zzz.RestAuthenticationSuccessHandler;
-import ru.halt.practice.security.zzz.RestAuthenticationEntryPoint;
-import ru.halt.practice.security.zzz.HttpLogoutSuccessHandler;
+import ru.halt.practice.security.zzz.*;
 
 /**
  * Created by Petr Rudenko on 10.02.2016.
  */
+
+
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(securedEnabled = true) // add 11.02.16
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true) //
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    @Autowired
-    private ClientAuthenticationProvider clientAuthenticationProvider;
-    @Autowired
-    @Qualifier("clientDetailsService")
-    private UserDetailsService userDetailsService;
-
     @Autowired
     private RestAuthenticationEntryPoint authenticationEntryPoint;
     @Autowired
-    private RestAuthenticationSuccessHandler restAuthenticationSuccessHandler;
-    @Autowired
-    private RestAuthenticationAccessDeniedHandler restAuthenticationAccessDeniedHandler;
-    //@Autowired
-    //private HttpLogoutSuccessHandler logoutSuccessHandler;
-
+    private RestAuthenticationAccessDeniedHandler accessDeniedHandler;
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userDetailsService); // .passwordEncoder(passwordEncoder())
-        //auth.authenticationProvider(customAuthenticationProvider);
+        auth.authenticationProvider(myTokenAuthenticationProvider());
+    }
 
-        /*
-           hello world!!!!!
-        */
-
-        //auth.authenticationProvider(clientAuthenticationProvider).
-        //authenticationProvider(backendAdminUsernamePasswordAuthenticationProvider()).
-        //authenticationProvider(tokenAuthenticationProvider());
-
-        /*
-        auth.inMemoryAuthentication().withUser("user").password("user").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("superadmin").password("superadmin").roles("SUPERADMIN");
-        */
+    @Bean
+    public MyTokenAuthenticationProvider myTokenAuthenticationProvider(){
+        return new MyTokenAuthenticationProvider();
     }
 
 
+    @Bean
+    public TestFilter getTestFilter() throws Exception {
+        return new TestFilter(authenticationManager());
+    }
 
-//    @Bean
-//    public RestUsernamePasswordAuthenticationFilter restFilter() throws Exception {
-//        RestUsernamePasswordAuthenticationFilter myFilter = new RestUsernamePasswordAuthenticationFilter();
-//        myFilter.setAuthenticationManager(authenticationManager());
-//
-//        return myFilter;
-//    }
-
-
+    // метро кузнецкий мост 18.45 - 19.00
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
-                .csrf().disable()
+        /*http
+                .addFilterBefore(getTestFilter(), BasicAuthenticationFilter.class)
+                .antMatcher("/admin*//**")
+                .authenticationProvider(myTokenAuthenticationProvider())
                 .authorizeRequests()
-                .antMatchers("/admin/**").authenticated(); // .antMatchers(HttpMethod.POST, "/admin/**").authenticated();
-                /*
-                .exceptionHandling()
-                .authenticationEntryPoint(authenticationEntryPoint)
-                .and()
-                .authorizeRequests()
-                .antMatchers("/admin/**").authenticated()
-                .and()
-                .formLogin()
-                .successHandler(restAuthenticationSuccessHandler)
-                .failureHandler(restAuthenticationAccessDeniedHandler)
-                .and()
-                .logout();
-                */
+                .anyRequest().authenticated();*/
 
 
-        //http.authorizeRequests().anyRequest().authenticated();
+        http.
+                csrf().disable().
+                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+                and().
+                authorizeRequests().
+                antMatchers("/admin/**").hasRole("ADMIN").
+                //anyRequest().authenticated().
+                and().
+                anonymous().disable().
+                exceptionHandling().authenticationEntryPoint(authenticationEntryPoint).accessDeniedHandler(accessDeniedHandler);
+
+        http.addFilterBefore(getTestFilter(), BasicAuthenticationFilter.class);
+
+
+        /*
+        http.
+                csrf().disable().
+                sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).
+                and().
+                authorizeRequests().
+                antMatchers("/admin/**").hasRole("ADMIN").
+                anyRequest().authenticated().
+                and().
+                anonymous().disable().
+                exceptionHandling().authenticationEntryPoint(authenticationEntryPoint);
+
+        http.addFilterBefore(getTestFilter(), BasicAuthenticationFilter.class);
+        //http.addFilterBefore(new MyAuthFilter(authenticationManager(), userDetailsService), BasicAuthenticationFilter.class);
+        //http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+
+        */
     }
-
-
-    /*
-    @Bean
-    public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setUserDetailsService(userDetailsService);
-        //authenticationProvider.setPasswordEncoder(new ShaPasswordEncoder());
-        return authenticationProvider;
-    }
-    */
-
-
-
-//    @Override
-//    public void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        System.out.println("userDetailsService = " + userDetailsService);
-//        auth.userDetailsService(userDetailsService);
-//        auth.authenticationProvider(customAuthenticationProvider);
-//    }
-
-//    @Bean
-//    public PasswordEncoder passwordEncoder(){
-//        PasswordEncoder encoder = new BCryptPasswordEncoder();
-//        return encoder;
-//    }
-
 }

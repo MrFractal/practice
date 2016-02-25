@@ -19,7 +19,7 @@ import java.io.PrintWriter;
  * если пользователь не обладает необходимой ролью для доступа, срабатывает: RestAuthenticationAccessDeniedHandler
  */
 @Component
-public class RestAuthenticationAccessDeniedHandler extends SimpleUrlAuthenticationFailureHandler { // or extends SimpleUrlAuthenticationFailureHandler   // AccessDeniedHandler
+public class RestAuthenticationAccessDeniedHandler implements AccessDeniedHandler { // or extends SimpleUrlAuthenticationFailureHandler   // AccessDeniedHandler
 
     //@Override
     public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException e) throws IOException, ServletException {
@@ -43,5 +43,5 @@ public class RestAuthenticationAccessDeniedHandler extends SimpleUrlAuthenticati
         writer.write(exception.getMessage());
         writer.flush();
     }
-    */
+   */
 }

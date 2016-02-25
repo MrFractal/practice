@@ -18,6 +18,7 @@ import java.io.IOException;
  * если пользователь не обладает необходимой ролью для доступа, срабатывает: RestAuthenticationAccessDeniedHandler
  *
  */
+
 @Component
 public class RestAuthenticationEntryPoint implements AuthenticationEntryPoint {
     // сюда попадают все, кто не прошел авторизацию

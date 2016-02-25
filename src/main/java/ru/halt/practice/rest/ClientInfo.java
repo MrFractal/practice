@@ -8,6 +8,10 @@ public class ClientInfo {
     private String login;
     private String password;
 
+    public ClientInfo(){
+
+    }
+
     public Long getId() {
         return id;
     }

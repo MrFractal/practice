@@ -14,7 +14,7 @@ public class AuthService implements IAuthService {
 
 
     public boolean loginUser(LoginUserInfo userInfo){
-        boolean result = false;
+        boolean result = true;
         if(userInfo.getUserType() == UserType.CLIENT){
             //Client client = clientRepository.findOne(userInfo.getId());
             //System.out.printf("Client: " + client.getFirstName());

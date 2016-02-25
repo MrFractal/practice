@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * Created by Petr Rudenko on 09.02.2016.
  */
-@ResponseStatus(value = HttpStatus.NO_CONTENT)
+//@ResponseStatus(value = HttpStatus.OK)
 public class UserNotFound extends RuntimeException {
     public UserNotFound(){
     }

@@ -1,6 +1,7 @@
 package ru.halt.practice.util;
 
 import ru.halt.practice.domain.Client;
+import ru.halt.practice.exception.UserNotFound;
 import ru.halt.practice.rest.ClientInfo;
 
 /**
@@ -9,10 +10,13 @@ import ru.halt.practice.rest.ClientInfo;
 public class ModelUtil {
 
     public static ClientInfo toModel(Client client){
-        ClientInfo info =  new ClientInfo();
-        info.setId(client.getId());
-        info.setLogin(client.getLogin());
-        info.setLogin(client.getPassword());
+        ClientInfo info = null;
+        if(client != null) {
+            info = new ClientInfo();
+            info.setId(client.getId());
+            info.setLogin(client.getLogin());
+            info.setLogin(client.getPassword());
+        }
         return info;
     }
 }

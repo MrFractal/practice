@@ -13,7 +13,7 @@ import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import ru.halt.practice.security.ClientDetailsService;
+//import ru.halt.practice.security.ClientDetailsService;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +29,7 @@ import java.util.logging.Logger;
  *
  * Created by Petr Rudenko on 11.02.2016.
  */
+
 @Component
 public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private RequestCache requestCache = new HttpSessionRequestCache();
@@ -64,3 +65,4 @@ public class RestAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuc
         this.requestCache = requestCache;
     }
 }
+

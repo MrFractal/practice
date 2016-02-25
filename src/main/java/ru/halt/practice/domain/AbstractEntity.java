@@ -1,5 +1,6 @@
 package ru.halt.practice.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 import org.hibernate.annotations.Type;
@@ -20,10 +21,12 @@ public abstract class AbstractEntity {
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
+    @JsonIgnore
     @Column(name = "last_update")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime lastUpdate;
 
+    @JsonIgnore
     @Version
     @Column(name = "version", nullable = false)
     private int version = 0;

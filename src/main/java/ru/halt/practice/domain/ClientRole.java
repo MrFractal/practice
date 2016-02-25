@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class ClientRole extends AbstractEntity {
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private Client client;
 

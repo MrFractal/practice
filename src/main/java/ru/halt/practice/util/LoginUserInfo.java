@@ -7,7 +7,16 @@ public class LoginUserInfo {
     private Long id;
     private String login;
     private String password;
+    private String token;
     private UserType userType;
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 
     public Long getId() {
         return id;

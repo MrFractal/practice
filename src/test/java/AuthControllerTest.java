@@ -19,18 +19,19 @@ public class AuthControllerTest {
     @Test
     public void testLogin() throws Exception {
         LoginRequest request = new LoginRequest();
-        request.setLoginUserInfo(buildLoginUserInfo());
+        request.setLogin("");
+        request.setPassword("");
         String asString = OBJECT_MAPPER.writeValueAsString(request);
         LoginResponse response = TEMPLATE.postForObject("http://localhost:8080/auth/login", request, LoginResponse.class);
-        response.getStr();
+        response.getToken();
     }
 
     private LoginUserInfo buildLoginUserInfo() {
         LoginUserInfo userInfo = new LoginUserInfo();
         userInfo.setId(1L);
         userInfo.setUserType(UserType.CLIENT);
-        userInfo.setLogin("fractal");
-        userInfo.setPassword("jjjjj");
+        userInfo.setLogin("fractal39");
+        userInfo.setPassword("java");
         return userInfo;
     }
 }

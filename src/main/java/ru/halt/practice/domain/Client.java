@@ -29,11 +29,13 @@ public class Client extends AbstractEntity implements IUser {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @JsonIgnore
     @Type(type = "yes_no")
     @Column(name = "is_enabled", nullable = false)
     private boolean isEnabled = false;
 
-    @OneToMany(orphanRemoval = true, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(orphanRemoval = true)
     @JoinColumn(name="client_id", insertable = true, updatable = true)
     @Fetch(value = FetchMode.JOIN)
     private Set<ClientRole> clientRoles = new HashSet<ClientRole>(0);

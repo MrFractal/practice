@@ -20,7 +20,7 @@ public class WebConfigInitializer extends AbstractAnnotationConfigDispatcherServ
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[] {ApplicationConfig.class, PersistenceContext.class, SecurityConfig.class};
+        return new Class[] {ApplicationConfig.class, PersistenceContext.class}; // , SecurityConfig.class
     }
 
 

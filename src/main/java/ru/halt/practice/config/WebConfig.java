@@ -7,13 +7,20 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.web.accept.ContentNegotiationManager;
+import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.view.ContentNegotiatingViewResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import org.springframework.web.servlet.view.ResourceBundleViewResolver;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,6 +30,12 @@ import java.util.List;
 @Configuration
 @ComponentScan({"ru.halt.practice.controller"})
 public class WebConfig extends WebMvcConfigurerAdapter {
+
+    /*@Override
+    public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+        configurer.ignoreAcceptHeader(true).defaultContentType(MediaType.APPLICATION_JSON);
+    }*/
+
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
@@ -45,7 +58,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
         final MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
         final ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
+        //objectMapper.setSerializationInclusion(JsonInclude.Include.NON_NULL); не выдвать в ответе поля, значения которых null
+        converters.add(new StringHttpMessageConverter());
         converter.setObjectMapper(objectMapper);
         converters.add(converter);
         super.configureMessageConverters(converters);
